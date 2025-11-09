@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Perspective App</title>
+
+	<script id="vertex-shader" type="x-shader/x-vertex">
+		attribute vec4 vPosition;
+		attribute vec4 vColor;
+		varying vec4 fColor;
+
+		uniform mat4 uPerspective;
+		uniform mat4 uCamera;
+		uniform mat4 uModel;
+
+		void main(){
+			gl_Position = uPerspective * uCamera * uModel * vPosition;
+			fColor = vColor;
+		}
+	</script>
+	<script id="fragment-shader" type="x-shader/x-fragment">
+		precision mediump float;
+		varying vec4 fColor;
+		void main() {
+			gl_FragColor = fColor;
+		}
+	</script>
+	<script type="text/javascript" src="../common_files/utils.js"></script>
+	<script type="text/javascript" src="../common_files/mat_vec.js"></script>
+	<script type="text/javascript" src="../common_files/initShaders.js"></script>
+	<script type="text/javascript" src="./teapot.js"></script> 
+	<script type="text/javascript" src="./perspective_app.js"></script> 
+	<!-- <script type="text/javascript" src="./test.js"></script>  -->
+</head>
+<body>
+	<canvas id="gl-canvas" width="512" height="512">
+	Oops ... your browser doesn't support the HTML5 canvas element
+	</canvas>
+<div style="margin-top: 15px;">
+	<label>Width Scale:</label>
+	<input type="range" id="scaleWidth" min="0.001" max="0.05" step="0.001" value="0.01">
+	<label>Height Scale:</label>
+	<input type="range" id="scaleHeight" min="0.001" max="0.05" step="0.001" value="0.01">
+	<label>Near:</label>
+	<input type="range" id="nearClip" min="0.5" max="4" step="0.01" value="0.5">
+	<label>Far:</label>
+	<input type="range" id="farClip" min="0.5" max="4" step="0.01" value="4">
+</div>
+</div>
+</body>
+</html>
